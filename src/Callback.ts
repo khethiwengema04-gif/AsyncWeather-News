@@ -49,6 +49,7 @@ fetchWeather((error, weather) => {
     const w = weather!.current_weather
     console.log('Temperature:', w.temperature, '°C')
     console.log('Wind Speed:', w.windspeed, 'km/h')
+    console.log('Humidity:', w.humidity, '%')
 
     fetchNews((error, news) => {
         if (error) { console.error('News error:', error.message); return }

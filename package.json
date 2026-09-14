@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev":"tsx src/index.ts",
-    "callback":"tsx src/Callback.ts"
+    "callback":"tsx src/Callback.ts",
+    "async":"tsx src/Async-await.ts",
+    "promises":"tsx src/Promises.ts"
     
   },
   "repository": {

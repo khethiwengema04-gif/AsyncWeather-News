@@ -37,7 +37,7 @@ function fetchWeather(callback: (error: Error | null, weather?: WeatherData) => 
 }
 
 function fetchNews(callback: (error: Error | null, news?: NewsData) => void): void {
-    const url = 'https://dummyjson.com/posts?limit=5'
+    const url = 'https://dummyjson.com/posts?limit=2'
     fetchData(url, (error, data) => {
         if (error) { callback(error); return }
         callback(null, JSON.parse(data!) as NewsData)

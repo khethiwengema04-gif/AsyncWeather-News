@@ -72,15 +72,15 @@ function runPromiseAllDemo() {
     })
 }
 
-// //PROMISE RACE
-// function runPromiseRaceDemo{
-//     console.log('\n[Promise.race] Racing weather request against a 2-second timeout window...')
-//     Promise.race([fetchWeather(), createTimeout(2000)])
-//     .then((weather) => {
-//         console.log(`[Promise.race Result] Success! Weather arrived before timeout: ${weather.current_weather.temperature}°C`)
-//     })
-//     .catch((error) => {
-//         console.error('[Promise.race Result] Race finished with a failure:',error.message)
-//     })
+//PROMISE RACE
+function runPromiseRaceDemo() {
+    console.log('\n[Promise.race] Racing weather request against a 2-second timeout window...')
+    Promise.race([fetchWeather(), createTimeout(2000)])
+    .then((weather) => {
+        console.log(`[Promise.race Result] Success! Weather arrived before timeout: ${weather.current_weather.temperature}°C`)
+    })
+    .catch((error) => {
+        console.error('[Promise.race Result] Race finished with a failure:',error)
+    })
 
-// }
+}

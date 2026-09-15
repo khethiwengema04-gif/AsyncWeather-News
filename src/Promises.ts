@@ -1,7 +1,7 @@
 import https from 'http'
 
 type WeatherData ={
- current_weather: { temparature:number; windspeed:number; weathercode:number}
+ current_weather: { temperature:number; windspeed:number; weathercode:number}
 }
 type NewsPost = {id:number; title:string; body:string}
 type NewsData ={posts: NewsPost[] }
@@ -19,9 +19,9 @@ function fetchData(url: string) : Promise<string>{
     })
 }
 
-function fetchWeather(): Promise<NewsData> {
+function fetchWeather(): Promise<WeatherData> {
     const url =  'https://api.open-meteo.com/v1/forecast?latitude=-29.86&longitude=31.02&current_weather=true'
-    return fetchData(url).then((data) => JSON.parse(data) as NewsData)
+    return fetchData(url).then((data) => JSON.parse(data) as WeatherData)
 }
 
 function fetchNews(): Promise<NewsData> {
@@ -34,3 +34,24 @@ function createTimeout(ms: number): Promise<never> {
     setTimeout(() =>reject(new Error(`Operation timed out after ${ms}ms`)),ms)
 )
 }
+
+//this is the PROMISE CHAINING 
+//it runs the weather check first,finishes it, then runs the news check
+
+console.log('[Chain] Starting sequential execution...')
+fetchWeather()
+.then((weather)=>{
+    const w = weather.current_weather
+    console.log(`[Chain Result] Weather:${w.temperature}°C, Wind: ${w.windspeed}km/h`)
+    //returning this promise passes it cleanly down to the next .then()
+    return fetchNews()
+})
+.then((news) =>{
+    console.log('[Chain Result] Top Headlines:')
+    news.posts.forEach((post, i) => console.log(` ${i + 1}. ${post.title}`))
+    //moving to the next demonstration once the chain finishes
+    runPromiseAllDemo()
+})
+.catch((error)=> {
+    console.error('[Chain Error] Something failed in the chain:', error.message)
+})

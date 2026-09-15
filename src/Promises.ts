@@ -55,3 +55,32 @@ fetchWeather()
 .catch((error)=> {
     console.error('[Chain Error] Something failed in the chain:', error.message)
 })
+
+//PROMISE ALL
+function runPromiseAllDemo() {
+    console.log('\n[Promise.all] Starting simultaneous execution...')
+
+    Promise.all([fetchWeather(), fetchNews()])
+    .then(([fetchWeather, news])=> {
+        console.log(`[Promise.all Result] Finished both! Temp is ${fetchWeather.current_weather.temperature}°C
+            and downloaded ${news.posts.length} articles.`)
+            //moving to the final demonstration
+            runPromiseRaceDemo()
+    })
+    .catch((error) => {
+        console.error('[Promise.all Error] One of the requests failed completely:', error.message)
+    })
+}
+
+// //PROMISE RACE
+// function runPromiseRaceDemo{
+//     console.log('\n[Promise.race] Racing weather request against a 2-second timeout window...')
+//     Promise.race([fetchWeather(), createTimeout(2000)])
+//     .then((weather) => {
+//         console.log(`[Promise.race Result] Success! Weather arrived before timeout: ${weather.current_weather.temperature}°C`)
+//     })
+//     .catch((error) => {
+//         console.error('[Promise.race Result] Race finished with a failure:',error.message)
+//     })
+
+// }

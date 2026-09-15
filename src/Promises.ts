@@ -18,3 +18,19 @@ function fetchData(url: string) : Promise<string>{
         }).on('error', (err) =>reject(new Error(err.message)))
     })
 }
+
+function fetchWeather(): Promise<NewsData> {
+    const url =  'https://api.open-meteo.com/v1/forecast?latitude=-29.86&longitude=31.02&current_weather=true'
+    return fetchData(url).then((data) => JSON.parse(data) as NewsData)
+}
+
+function fetchNews(): Promise<NewsData> {
+     const url = 'https://dummyjson.com/posts?limit=2'
+     return fetchData(url).then((data) => JSON.parse(data) as NewsData)
+}
+//in this function ,it a timeout promise used in a race and automatically reject after 2000 miliseconds
+function createTimeout(ms: number): Promise<never> {
+    return new Promise((_,reject) =>
+    setTimeout(() =>reject(new Error(`Operation timed out after ${ms}ms`)),ms)
+)
+}
